@@ -1,0 +1,12 @@
+[Unit]
+Description=Livedns prometheus exporter
+After=
+Before=multi-user.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/gandi/livedns-prometheus.env
+ExecStart=/usr/bin/livedns-prometheus -tls.crt /etc/gandi/${HOSTNAME}.cachain -tls.key /etc/gandi/${HOSTNAME}.key -tls.ca /etc/gandi/monitoring.crt  -hostname $HOSTNAME -datacenter $DATACENTER -platform $PLATFORM
+
+[Install]
+WantedBy=sysinit.target

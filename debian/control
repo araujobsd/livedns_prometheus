@@ -1,0 +1,19 @@
+Source: livedns-prometheus
+Section: utils
+Priority: optional
+Maintainer: Arthur Gautier <baloo@gandi.net>
+Build-Depends: debhelper (>= 10),
+               dh-golang,
+               golang-any (>= 2:1.7~5),
+               upx-ucl
+Standards-Version: 3.9.8
+Homepage: https://gitlab.corp.gandi.net/devops/livedns-prometheus
+XS-Go-Import-Path: gitlab.corp.gandi.net/devops/livedns-prometheus
+
+Package: livedns-prometheus
+Architecture: any
+Built-Using: ${misc:Built-Using}
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: Fetch livedns stats form nodes
+ Fetch livedns stats form nodes and exposes them through https

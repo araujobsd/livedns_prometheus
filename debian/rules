@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --buildsystem=golang --with=golang --builddirectory=_build
+
+override_dh_auto_install:
+	dh_auto_install -O--buildsystem=golang -O--builddirectory=_build
+	rm -rf debian/livedns-prometheus/usr/share/gocode/
+
+override_dh_strip:
+	dh_strip -O--buildsystem=golang -O--builddirectory=_build
+	upx -q debian/livedns-prometheus/usr/bin/livedns-prometheus
+	rm -rf debian/livedns-prometheus/usr/bin/livedns-prometheus.upx
