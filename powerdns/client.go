@@ -4,7 +4,7 @@ import (
 	"io"
 	"net"
 
-	"gitlab.corp.gandi.net/devops/livedns-prometheus/powerdns/parser"
+	"github.com/araujobsd/livedns_prometheus/powerdns/parser"
 )
 
 type powerdnsClient struct {
@@ -78,4 +78,3 @@ func (p *powerdnsClient) Respsizes() (map[string]int64, error) {
 
 	return respsizes, nil
 }
-
