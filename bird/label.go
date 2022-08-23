@@ -18,11 +18,11 @@ func NewLivednsLabelStrategy(hostname, datacenter, platform string) LivednsLabel
 	}
 }
 
-func (l *LivednsLabelStrategy) LabelNames() []string {
+func (l *LivednsLabelStrategy) labelNames() []string {
 	return []string{"name", "proto", "ip_version", "hostname", "datacenter", "platform"}
 }
 
-func (l *LivednsLabelStrategy) LabelValues(p *protocol.Protocol) []string {
+func (l *LivednsLabelStrategy) labelValues(p *protocol.Protocol) []string {
 	return []string{p.Name, protoString(p), p.IpVersion, l.hostname, l.datacenter, l.platform}
 }
 
