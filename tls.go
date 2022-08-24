@@ -8,7 +8,7 @@ import (
 	"net"
 	"net/http"
 	"time"
-	)
+)
 
 type Tls struct {
 	config tls.Config
@@ -18,27 +18,27 @@ func SetupTLS(ca, key, crt string) (*Tls, error) {
 	fail := func(err error) (*Tls, error) { return nil, err }
 
 	cert, err := tls.LoadX509KeyPair(crt, key)
-	if (err != nil) {
+	if err != nil {
 		return fail(err)
 	}
 
 	clientCert, err := loadClientCertificate(ca)
-	if (err != nil) {
+	if err != nil {
 		return fail(err)
 	}
 
 	var certs []tls.Certificate
 	certs = append(certs, cert)
 
-	config := tls.Config {
+	config := tls.Config{
 		Certificates: certs,
 
 		// Client authentication
 		ClientAuth: tls.RequireAndVerifyClientCert,
-		ClientCAs: clientCert,
+		ClientCAs:  clientCert,
 	}
 
-	srv := Tls {
+	srv := Tls{
 		config: config,
 	}
 	return &srv, nil
