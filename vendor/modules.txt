@@ -54,6 +54,8 @@ github.com/prometheus/procfs/xfs
 # github.com/sirupsen/logrus v1.0.7-0.20180731161355-d329d24db431
 ## explicit
 github.com/sirupsen/logrus
+# github.com/stretchr/testify v1.8.0
+## explicit; go 1.13
 # golang.org/x/crypto v0.0.0-20180802221240-56440b844dfe
 ## explicit
 golang.org/x/crypto/ssh/terminal
@@ -61,6 +63,8 @@ golang.org/x/crypto/ssh/terminal
 ## explicit; go 1.17
 golang.org/x/net/html
 golang.org/x/net/html/atom
+# golang.org/x/sync v0.0.0-20220819030929-7fc1605a5dde
+## explicit
 # golang.org/x/sys v0.0.0-20210423082822-04245dca01da
 ## explicit; go 1.12
 golang.org/x/sys/internal/unsafeheader
@@ -68,6 +72,10 @@ golang.org/x/sys/unix
 golang.org/x/sys/windows
 golang.org/x/sys/windows/registry
 golang.org/x/sys/windows/svc/eventlog
+# gopkg.in/airbrake/gobrake.v2 v2.0.9
+## explicit
 # gopkg.in/alecthomas/kingpin.v2 v2.2.6
 ## explicit
 gopkg.in/alecthomas/kingpin.v2
+# gopkg.in/gemnasium/logrus-airbrake-hook.v2 v2.1.2
+## explicit
