@@ -1,10 +1,12 @@
 #!/usr/bin/make -f
 export GOPATH=$(CURDIR)
+export DH_VERBOSE=1
 
 PKGDIR=debian/livedns-prometheus
 
 %:
 	dh $@ 
+	ls /var/tmp/module/vendor/github.com/araujobsd/
 
 clean:
 	dh_clean
