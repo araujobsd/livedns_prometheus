@@ -16,8 +16,13 @@ require (
 	github.com/prometheus/procfs v0.0.0-20180725123919-05ee40e3a273
 	github.com/sirupsen/logrus v1.0.7-0.20180731161355-d329d24db431
 	golang.org/x/crypto v0.0.0-20180802221240-56440b844dfe
-	golang.org/x/sys v0.0.0-20180802203216-0ffbfd41fbef
+	golang.org/x/sys v0.0.0-20210423082822-04245dca01da
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
 
-require github.com/beorn7/perks v1.0.1 // indirect
+require (
+	github.com/PuerkitoBio/goquery v1.8.0 // indirect
+	github.com/andybalholm/cascadia v1.3.1 // indirect
+	github.com/beorn7/perks v1.0.1 // indirect
+	golang.org/x/net v0.0.0-20210916014120-12bc252f5db8 // indirect
+)

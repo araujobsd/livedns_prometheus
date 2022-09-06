@@ -2,6 +2,13 @@ package powerdns
 
 import (
 	"github.com/prometheus/client_golang/prometheus"
+	// BEGIN LiveDNS platform a, b and c
+	"github.com/PuerkitoBio/goquery"
+	"log"
+	"net/http"
+	"strings"
+	"strconv"
+	// END LiveDNS platform a, b and c
 )
 
 type PowerdnsCollector struct {
@@ -12,6 +19,9 @@ type PowerdnsCollector struct {
 
 	qtypes   *prometheus.Desc
 	respsize *prometheus.Desc
+
+	// Define metric for LiveDNS abc platform
+	livednsNetwork *prometheus.Desc
 
 	corruptPackets             *prometheus.Desc
 	deferredCacheInserts       *prometheus.Desc
@@ -68,7 +78,11 @@ func NewMetricCollector(socket, hostname, datacenter, platform string) PowerdnsC
 		platform:   platform,
 	}
 
-	labels := []string{"datacenter", "platform", "hostname", "qtype"}
+	// Collect LiveDNS abc platform metrics
+	labels := []string{"datacenter", "platform", "hostname"}
+	p.livednsNetwork = prometheus.NewDesc("livedns_platform_count", "dns request per platform", labels, nil)
+
+	labels = []string{"datacenter", "platform", "hostname", "qtype"}
 	p.qtypes = prometheus.NewDesc("livedns_qtypes_count", "qtypes in requests", labels, nil)
 
 	labels = []string{"datacenter", "platform", "hostname", "bucket_size"}
@@ -129,6 +143,9 @@ func NewMetricCollector(socket, hostname, datacenter, platform string) PowerdnsC
 func (p *PowerdnsCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- p.qtypes
 	ch <- p.respsize
+
+	// Channel for LiveDNS abc platform metrics.
+	ch <- p.livednsNetwork
 
 	ch <- p.corruptPackets
 	ch <- p.deferredCacheInserts
@@ -191,6 +208,58 @@ func (p *PowerdnsCollector) Collect(ch chan<- prometheus.Metric) {
 			ch <- prometheus.MustNewConstMetric(p.respsize, prometheus.GaugeValue, float64(respsizes[k]), labels...)
 		}
 	}
+
+	// BEGIN LiveDNS platform.
+	// LiveDNS platform variables to aggregate the data.
+	var row []string
+	var rows [][]string
+
+	// Perform request to PDNS webserver metrics
+	resp, err := http.Get("http://127.0.0.1:8081")
+	if err != nil {
+		print(err)
+		return
+	}
+	// Close resp when we are out of scope.
+	defer resp.Body.Close()
+
+	// Parse the response data.
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Collect the div.panel from webserver metrics for LiveDNS platform.
+	doc.Find("div.panel").Each(func(i int, s *goquery.Selection) {
+		if strings.Contains(s.Text(), "Queries received on platform") {
+			s.Find("tr td").Each(func(i int, td *goquery.Selection) {
+				row = append(row, strings.TrimSpace(td.Text()))
+				if len(row) == 3 {
+					rows = append(rows, row)
+					row = nil
+				}
+
+			})
+		}
+		row = nil
+	})
+
+	// Export the metrics per LiveDNS platform.
+	for _, data := range rows {
+		if strings.Contains(data[0], "queries-recv-address-a") {
+			labels := []string{p.datacenter, "livedns_a", p.hostname}
+			count,_ := strconv.ParseFloat(data[1], 64)
+			ch <- prometheus.MustNewConstMetric(p.livednsNetwork, prometheus.GaugeValue, float64(count), labels...)
+		} else if strings.Contains(data[0], "queries-recv-address-b") {
+			labels := []string{p.datacenter, "livedns_b", p.hostname}
+			count,_ := strconv.ParseFloat(data[1], 64)
+			ch <- prometheus.MustNewConstMetric(p.livednsNetwork, prometheus.GaugeValue, float64(count), labels...)
+		} else if strings.Contains(data[0], "queries-recv-address-c") {
+			labels := []string{p.datacenter, "livedns_c", p.hostname}
+			count,_ := strconv.ParseFloat(data[1], 64)
+			ch <- prometheus.MustNewConstMetric(p.livednsNetwork, prometheus.GaugeValue, float64(count), labels...)
+		}
+	}
+	// END LiveDNS platform.
 
 	stats, err := p.client.Stats()
 	if err == nil {
