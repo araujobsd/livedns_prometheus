@@ -1,6 +1,6 @@
 module github.com/araujobsd/livedns_prometheus
 
-go 1.7
+go 1.18
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.0
