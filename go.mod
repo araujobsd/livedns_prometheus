@@ -4,7 +4,6 @@ go 1.18
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.0
-	github.com/araujobsd/livedns-prometheus v0.0.0-20220906043500-2e72fc355eef
 	github.com/czerwonk/bird_exporter v0.0.0-20180824071309-d984aa91405c
 	github.com/czerwonk/testutils v0.0.0-20170526233935-dd9dabe360d4
 	github.com/prometheus/client_golang v0.9.0-pre1.0.20180713201052-bcbbc08eb2dd
