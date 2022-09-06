@@ -4,7 +4,7 @@ import (
 	"io"
 	"net"
 
-	"github.com/araujobsd/livedns_prometheus/powerdns/parser"
+	"github.com/araujobsd/livedns-prometheus/powerdns/parser"
 )
 
 type powerdnsClient struct {
