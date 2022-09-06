@@ -1,4 +1,4 @@
-module github.com/araujobsd/livedns_prometheus
+module github.com/araujobsd/livedns-prometheus
 
 go 1.18
 
