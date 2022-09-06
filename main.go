@@ -11,8 +11,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/prometheus/common/log"
 
-	"github.com/araujobsd/livedns_prometheus/bird"
-	"github.com/araujobsd/livedns_prometheus/powerdns"
+	"github.com/araujobsd/livedns-prometheus/bird"
+	"github.com/araujobsd/livedns-prometheus/powerdns"
 )
 
 const version string = "0.0.3"
