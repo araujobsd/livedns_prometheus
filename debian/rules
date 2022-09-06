@@ -1,13 +1,29 @@
 #!/usr/bin/make -f
+export GOPATH=$(CURDIR)
+
+PKGDIR=debian/livedns-prometheus
 
 %:
-	dh $@ --buildsystem=golang --with=golang --builddirectory=_build
+	dh $@ 
 
-override_dh_auto_install:
-	dh_auto_install -O--buildsystem=golang -O--builddirectory=_build
-	rm -rf debian/livedns-prometheus/usr/share/gocode/
+clean:
+	dh_clean
+	rm -rf $(GOPATH)/bin/* $(GOPATH)/pkg/*
+	#cd $(GOPATH)/src && find * -name '*.go' -exec dirname {} \; | xargs -n1 go clean
+	rm -f $(GOPATH)/goinstall.log
 
-override_dh_strip:
-	dh_strip -O--buildsystem=golang -O--builddirectory=_build
-	upx -q debian/livedns-prometheus/usr/bin/livedns-prometheus
-	rm -rf debian/livedns-prometheus/usr/bin/livedns-prometheus.upx
+binary-arch: clean
+	dh_prep
+	dh_installdirs
+	cd $(GOPATH)/src && find * -name '*.go' -exec dirname {} \; | xargs -n1 go install
+	mkdir -p $(PKGDIR)/usr/bin
+	cp $(GOPATH)/bin/* $(PKGDIR)/usr/bin/
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-arch
