@@ -1,3 +1,5 @@
+# github.com/Bowery/prompt v0.0.0-20190916142128-fa8279994f75
+## explicit
 # github.com/PuerkitoBio/goquery v1.8.0
 ## explicit; go 1.13
 github.com/PuerkitoBio/goquery
@@ -26,12 +28,20 @@ github.com/czerwonk/bird_socket
 # github.com/czerwonk/testutils v0.0.0-20170526233935-dd9dabe360d4
 ## explicit
 github.com/czerwonk/testutils/assert
+# github.com/dchest/safefile v0.0.0-20151022103144-855e8d98f185
+## explicit
 # github.com/golang/protobuf v1.1.1-0.20180803194343-7d1b268556d6
 ## explicit
 github.com/golang/protobuf/proto
+# github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510
+## explicit; go 1.13
+# github.com/kardianos/govendor v1.0.9
+## explicit
 # github.com/matttproud/golang_protobuf_extensions v1.0.1
 ## explicit
 github.com/matttproud/golang_protobuf_extensions/pbutil
+# github.com/pkg/errors v0.9.1
+## explicit
 # github.com/prometheus/client_golang v0.9.0-pre1.0.20180713201052-bcbbc08eb2dd
 ## explicit
 github.com/prometheus/client_golang/prometheus
@@ -59,19 +69,21 @@ github.com/sirupsen/logrus
 # golang.org/x/crypto v0.0.0-20180802221240-56440b844dfe
 ## explicit
 golang.org/x/crypto/ssh/terminal
-# golang.org/x/net v0.0.0-20210916014120-12bc252f5db8
+# golang.org/x/net v0.0.0-20220722155237-a158d28d115b
 ## explicit; go 1.17
 golang.org/x/net/html
 golang.org/x/net/html/atom
 # golang.org/x/sync v0.0.0-20220819030929-7fc1605a5dde
 ## explicit
-# golang.org/x/sys v0.0.0-20210423082822-04245dca01da
-## explicit; go 1.12
+# golang.org/x/sys v0.0.0-20220906165534-d0df966e6959
+## explicit; go 1.17
 golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix
 golang.org/x/sys/windows
 golang.org/x/sys/windows/registry
 golang.org/x/sys/windows/svc/eventlog
+# golang.org/x/tools v0.1.12
+## explicit; go 1.18
 # gopkg.in/airbrake/gobrake.v2 v2.0.9
 ## explicit
 # gopkg.in/alecthomas/kingpin.v2 v2.2.6
@@ -79,3 +91,5 @@ golang.org/x/sys/windows/svc/eventlog
 gopkg.in/alecthomas/kingpin.v2
 # gopkg.in/gemnasium/logrus-airbrake-hook.v2 v2.1.2
 ## explicit
+# gopkg.in/yaml.v2 v2.4.0
+## explicit; go 1.15
